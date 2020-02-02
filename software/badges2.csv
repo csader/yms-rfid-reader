@@ -1,0 +1,26 @@
+,,First Name,Last Name,Email,badge,tools
+2019-08-30T18:20:34.097-07:00,True,Christopher,Sader,chris.sader@gmail.com,002A0C13,[{
+    "Id": 12351021,
+    "Label": "Glowforge"
+}, {
+    "Id": 12351022,
+    "Label": "3D Printers"
+}, {
+    "Id": 12351024,
+    "Label": "Shopbot"
+}, {
+    "Id": 12351026,
+    "Label": "Table Saw"
+}, {
+    "Id": 12351027,
+    "Label": "Mitre Saw"
+}, {
+    "Id": 12351028,
+    "Label": "Planer"
+}, {
+    "Id": 12351029,
+    "Label": "Jointer"
+}, {
+    "Id": 12351030,
+    "Label": "Pottery Wheel"
+}],
