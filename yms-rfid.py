@@ -37,6 +37,18 @@ RELAY_RL1_MAKER_SPACE_AUTH_BOARD_J12 = 6        # Physical Pin 31 / BCM-6
 #PWR_12V = "J12-1"
 #GND = "BOARD6"
 
+def convert(list):
+    res = int("".join(map(str, list)))
+    return res
+#loop through csv list
+with open('authorized.txt', 'r') as csv_file:
+    csv_reader = csv.reader(csv_file, delimiter=' ')
+    id_list = []
+    for row in csv_reader:
+        irow = convert(row)
+        id_list.append(irow)
+    #if current rows 2nd value is equal to input, print that row
+
 DEVNULL = open('/dev/null', 'r+')
 class Dispatcher(BaseDispatcher):
   def __init__(self, config):
@@ -55,24 +67,19 @@ class Dispatcher(BaseDispatcher):
 
     #input number you want to search
     #badge_check = raw_input(badge_id)
+    temp_list = id_list
 
-    #read csv, and split on "," the line
-    csv_file = csv.reader(open('badges2.csv', "rb"), delimiter=",")
+    if badge_int in temp_list:
+        time.sleep(0.5)
+        print("Unlocking:")
+        print row
+        lock.on()       #Unlock
+        time.sleep(2.0) #Pause 3.0 seconds = 1500 milliseconds
+        lock.off()      #lock
+        print("Lock")
 
-    #loop through csv list
-    for row in csv_file:
-        #if current rows 2nd value is equal to input, print that row
-        if badge_int in row:
-            time.sleep(0.5)
-            print("Unlocking:")
-            print row
-            lock.on()       #Unlock
-            time.sleep(2.0) #Pause 3.0 seconds = 1500 milliseconds
-            lock.off()      #lock
-            print("Lock")
-
-        else:
-            print("Badge not found in member database.")
+    else:
+        print("Badge not found in member database.")
 
 
     #if(databaseID != Database.CREDENTIALS_ID_NOT_FOUND):
@@ -88,7 +95,7 @@ class Dispatcher(BaseDispatcher):
     #    print("HEX code UID not found in Whitelist")
 
 def main(args):
-  config_filename = 'MintyBox.ini'
+  config_filename = 'yms-rfid.ini'
   config = Config(config_filename)
   Dispatcher(config).run_loop()
 
