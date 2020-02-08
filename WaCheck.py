@@ -35,7 +35,6 @@ contactsUrl = next(res for res in account.Resources if res.Name == 'Contacts').U
 # get members with Badge IDs in the system and print them
 contacts = get_badge_ids()
 
-
 # create obj out of response. Ref: https://app.swaggerhub.com/apis-docs/WildApricot/wild-apricot_public_api/2.1.0#/Contacts/GetContactsList
 obj = {}
 with open('contacts.json', 'w') as outfile:
@@ -43,17 +42,20 @@ with open('contacts.json', 'w') as outfile:
         obj[contact.Id] = {
             "firstName": contact.FirstName,
             "lastName": contact.LastName,
-            "email": contact.Email
+            "email": contact.Email,
         }
         for field in contact.FieldValues:
             if field.Value is not None:
-                if isinstance(field.Value, list):
-                    obj[contact.Id]["tools"] = []
-                    for tool in field.Value:
-                       obj[contact.Id]["tools"].append({
-                           "id": tool.Id,
-                           "label": tool.Label
-                       }) 
+                if field.FieldName == 'badge':
+                    obj[contact.Id]["badgeId"] = field.Value
+                else:
+                    if isinstance(field.Value, list):
+                        obj[contact.Id]["tools"] = []
+                        for tool in field.Value:
+                            obj[contact.Id]["tools"].append({
+                                "id": tool.Id,
+                                "label": tool.Label
+                            }) 
 
 # save object to json file
 with open('contacts.json', 'w') as outfile:

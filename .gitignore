@@ -1,6 +1,7 @@
 .*.sw[op]
 *~
-
+contacts.json
+*.json
 *.py[co]
 
 *.b#?
