@@ -55,7 +55,7 @@ with open('contacts.json', 'w') as outfile:
                             obj[contact.Id]["tools"].append({
                                 "id": tool.Id,
                                 "label": tool.Label
-                            }) 
+                            })
 
 # save object to json file
 with open('contacts.json', 'w') as outfile:

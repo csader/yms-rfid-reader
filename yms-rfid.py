@@ -23,6 +23,7 @@ import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BOARD)
 import Database
 import json
+import datetime
 
 from authbox.api import *
 from authbox.config import Config
@@ -65,6 +66,8 @@ class Dispatcher(BaseDispatcher):
     print "Badge hex", badge_id
 
     temp_list = id_list
+    ts = time.time()
+    sttime = datetime.datetime.fromtimestamp(ts).strftime('%m%d%Y_%H:%M:%S - ')
 
     if badge_int in temp_list:
         time.sleep(0.5)
@@ -74,9 +77,13 @@ class Dispatcher(BaseDispatcher):
         time.sleep(2.0) #Pause 3.0 seconds = 1500 milliseconds
         lock.off()      #lock
         print("Lock")
+        with open("badgelog.txt", "a") as myfile:
+            myfile.write(sttime + "Door unlocked with badge: " + badge_id + "\n")
 
     else:
         print("Badge not found in member database.")
+        with open("badgelog.txt", "a") as myfile:
+            myfile.write(sttime + "Unknown badge attempted: " + badge_id + "\n")
 
 def main(args):
   config_filename = 'yms-rfid.ini'
