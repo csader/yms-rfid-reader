@@ -18,6 +18,8 @@ Replace CLIENT_ID=“XXXXXXXX”, CLIENT_SECRET=“XXXXXXXX”, and API_KEY=“X
 CTRL+X to exit, Y to save changes
 
 ```
+chmod +x killrfid.sh
+chmod +x runatstartup.sh
 crontab -e
 ```
 
